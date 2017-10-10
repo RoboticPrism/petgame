@@ -5,13 +5,14 @@ using UnityEngine.UI;
 
 public class IntroController : MonoBehaviour {
 
+    public GameController gameController;
+    public GameObject introObjects;
     public InputField input;
-    public Button button;
     public Creature creature;
 
 	// Use this for initialization
 	void Start () {
-        StartNaming();
+        
 	}
 	
 	// Update is called once per frame
@@ -21,7 +22,14 @@ public class IntroController : MonoBehaviour {
 
     public void StartNaming ()
     {
-        input.gameObject.SetActive(true);
+        creature.gameObject.SetActive(true);
+        if (gameController.namingVersion == GameController.testNaming.custom)
+        {
+            introObjects.SetActive(true);
+        } else
+        {
+            EndNaming();
+        }
     }
 
     public void EndNaming ()
@@ -29,9 +37,13 @@ public class IntroController : MonoBehaviour {
         if (input.text != "")
         {
             creature.NameMe(input.text);
-            Destroy(input.gameObject);
-            Destroy(button.gameObject);
-            Destroy(gameObject);
+            CleanUpNaming();
         }
+    }
+
+    public void CleanUpNaming ()
+    {
+        Destroy(introObjects);
+        Destroy(gameObject);
     }
 }
