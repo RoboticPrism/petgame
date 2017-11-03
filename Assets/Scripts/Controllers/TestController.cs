@@ -5,12 +5,11 @@ using UnityEngine.UI;
 
 public class TestController : MonoBehaviour {
 
-    public GameController gameController;
-    public GameObject testingObjects;
+    GameController gameController;
 
 	// Use this for initialization
 	void Start () {
-		
+        gameController = FindObjectOfType<GameController>();
 	}
 	
 	// Update is called once per frame
@@ -30,8 +29,7 @@ public class TestController : MonoBehaviour {
 
     public void CleanUpTests ()
     {
-        Destroy(testingObjects);
-        gameController.StartTitle();
+        gameController.titleController.StartTitle();
         Destroy(gameObject);
     }
 }

@@ -5,15 +5,14 @@ using UnityEngine.UI;
 
 public class IntroController : MonoBehaviour {
 
-    public GameController gameController;
-    public GameObject introObjects;
+    GameController gameController;
     public InputField input;
     public Creature creature;
 
 	// Use this for initialization
 	void Start () {
-        
-	}
+        gameController = FindObjectOfType<GameController>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -25,10 +24,10 @@ public class IntroController : MonoBehaviour {
         creature.gameObject.SetActive(true);
         if (gameController.namingVersion == GameController.testNaming.custom)
         {
-            introObjects.SetActive(true);
+            gameObject.SetActive(true);
         } else
         {
-            EndNaming();
+            CleanUpNaming();
         }
     }
 
@@ -43,7 +42,7 @@ public class IntroController : MonoBehaviour {
 
     public void CleanUpNaming ()
     {
-        Destroy(introObjects);
+        gameController.StartGame();
         Destroy(gameObject);
     }
 }
