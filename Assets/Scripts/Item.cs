@@ -2,7 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemsUI : MonoBehaviour {
+public class Item : MonoBehaviour {
+
+    public int price;
+    public enum itemType { FOOD, TOY, HAT };
+    public itemType type;
+    public Sprite sprite;
 
 	// Use this for initialization
 	void Start () {

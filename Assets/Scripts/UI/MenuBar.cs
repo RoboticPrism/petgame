@@ -24,9 +24,8 @@ public class MenuBar : MonoBehaviour {
             item.GetComponent<Button>().onClick.AddListener(() => ChangeSelected(item.assocaitedState));
         }
 
-        // Hide items
-        storeObjects.gameObject.SetActive(false);
-        itemObjects.gameObject.SetActive(false);
+        // Select home button
+        ChangeSelected(states.HOME);
     }
 	
 	// Update is called once per frame
