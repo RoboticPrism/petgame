@@ -9,8 +9,13 @@ public class MenuItem : MonoBehaviour {
     RectTransform rect;
     RectTransform scaler;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
+
+    }
+
+    void OnEnable () {
         rect = GetComponent<RectTransform>();
         scaler = transform.GetChild(0).GetComponent<RectTransform>();
 	}

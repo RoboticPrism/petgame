@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: cae9b473e3ae8e4428fb05e3dca5e3c6
-timeCreated: 1510023297
+timeCreated: 1510069775
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -76,10 +76,10 @@ TextureImporter:
       name: box_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 650
-        height: 354
+        x: 28
+        y: 23
+        width: 585
+        height: 309
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -89,10 +89,10 @@ TextureImporter:
       name: box_1
       rect:
         serializedVersion: 2
-        x: 650
-        y: 0
-        width: 650
-        height: 354
+        x: 696
+        y: 27
+        width: 559
+        height: 305
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -102,10 +102,10 @@ TextureImporter:
       name: box_2
       rect:
         serializedVersion: 2
-        x: 1300
-        y: 0
-        width: 650
-        height: 354
+        x: 1346
+        y: 21
+        width: 555
+        height: 313
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
