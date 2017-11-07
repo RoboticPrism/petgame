@@ -14,11 +14,6 @@ public class InventoryItemButton : MonoBehaviour {
         button = GetComponent<Button>();
         image.sprite = item.sprite;
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
     public void SetItem(Item newItem)
     {
