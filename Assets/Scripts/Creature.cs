@@ -120,7 +120,8 @@ public class Creature : MonoBehaviour {
         SetHappiness(-1);
     }
 
-    void OnMouseOver()
+
+    void OnMouseEnter()
     {
         mouse.SetPetMouse();
         mousedOver = true;
