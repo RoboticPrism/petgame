@@ -11,6 +11,8 @@ public class ItemsUI : MonoBehaviour {
     public GameObject contentPane;
     public InventoryItemButton itemPrefab;
 
+    public Creature creature;
+
     // Use this for initialization
     void Start () {
         
@@ -26,6 +28,7 @@ public class ItemsUI : MonoBehaviour {
         itemsOwned.Add(selectedItem);
         GameObject newButton = Instantiate(itemPrefab.gameObject, contentPane.transform);
         newButton.GetComponent<InventoryItemButton>().SetItem(selectedItem);
+        newButton.GetComponent<Button>().onClick.AddListener(() => creature.SetCurrentItem(selectedItem));
         itemButtons.Add(newButton.GetComponent<InventoryItemButton>());
         ArrangeButtons();
     }
