@@ -10,6 +10,7 @@ public class MenuBar : MonoBehaviour {
     List<MenuItem> items;
     StoreUI storeObjects;
     ItemsUI itemObjects;
+	AudioSource source;
 
 	// Use this for initialization
 	void Start () {
@@ -17,6 +18,7 @@ public class MenuBar : MonoBehaviour {
         items = new List<MenuItem>(FindObjectsOfType<MenuItem>());
         storeObjects = FindObjectOfType<StoreUI>();
         itemObjects = FindObjectOfType<ItemsUI>();
+		source = GetComponent<AudioSource> ();
 
         // Add button listeners
         foreach (MenuItem item in items)
@@ -36,7 +38,7 @@ public class MenuBar : MonoBehaviour {
     // Set a new selected button and change things accordingly
     public void ChangeSelected(states newState)
     {
-
+		source.PlayOneShot(source.clip);
         selected = newState;
 
         // Highlight the selected button and dehighlight the rest
