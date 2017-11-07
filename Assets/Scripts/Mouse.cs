@@ -4,29 +4,32 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Mouse : MonoBehaviour {
+    [SerializeField]
+    private Animator anim;
 
-    Image image;
+    private enum PointerStates
+    {
+        DEFAULT = 0,
+        PETTING = 1
+    }
 
-    public Sprite mouseSprite;
-    public Sprite mousePetSprite;
+    private const string animPointerState = "PointerState";
+    private const string animGo = "Go";
 
-    // Use this for initialization
-    void Start () {
-        image = GetComponent<Image>();	
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    // Update is called once per frame
+    void Update () {
         transform.position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);
 	}
 
     public void SetDefaultMouse()
     {
-        image.sprite = mouseSprite;
+        anim.SetTrigger(animGo);
+        anim.SetInteger(animPointerState, (int)PointerStates.DEFAULT);
     }
 
     public void SetPetMouse()
     {
-        image.sprite = mousePetSprite;
+        anim.SetTrigger(animGo);
+        anim.SetInteger(animPointerState, (int)PointerStates.PETTING);
     }
 }
