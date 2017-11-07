@@ -25,13 +25,11 @@ public class Mouse : MonoBehaviour {
     {
         anim.SetTrigger(animGo);
         anim.SetInteger(animPointerState, (int)PointerStates.DEFAULT);
-        Debug.Log("default mouse");
     }
 
     public void SetPetMouse()
     {
         anim.SetTrigger(animGo);
         anim.SetInteger(animPointerState, (int)PointerStates.PETTING);
-        Debug.Log("petting mouse");
     }
 }
