@@ -9,36 +9,55 @@ public class Creature : MonoBehaviour {
     public float happiness;
     public TextMesh nameTag;
     public Animator faceAnimator;
+    public Animator bubbleAnimator;
+    public GameObject speechBubble;
 
+    public MenuBar menuBar;
     public Mouse mouse;
     bool mousedOver = false;
+    bool mouseDown = false;
+    float mouseDownTime = 0f;
+    float lastAction = 0f;
 
     public Item currentItem = null;
-    public SpriteRenderer foodImage;
-    public SpriteRenderer toyImage;
-    public SpriteRenderer hatImage;
+    public Animator foodAnim;
+    public Animator toyAnim;
+    public Animator hatAnim;
 
 
     // Use this for initialization
     void Start () {
+        menuBar = FindObjectOfType<MenuBar>();
         mouse = FindObjectOfType<Mouse>();
+        speechBubble.SetActive(false);
+        SetCurrentItem(null);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if(mouseDown)
+        {
+            mouseDownTime += Time.deltaTime;
+        }
+        lastAction += Time.deltaTime;
 	}
 
-    IEnumerator deleteToy()
+    IEnumerator DeleteToy(float waitTime)
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(waitTime);
         SetCurrentItem(null);
     }
 
-    IEnumerator deleteFood()
+    IEnumerator DeleteFood(float waitTime)
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(waitTime);
         SetCurrentItem(null);
+    }
+
+    IEnumerator HideBubble(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        speechBubble.SetActive(false);
     }
 
     public void SetCurrentItem(Item newItem)
@@ -46,20 +65,29 @@ public class Creature : MonoBehaviour {
         currentItem = newItem;
         if (newItem && newItem.type == Item.itemType.FOOD)
         {
-            foodImage.sprite = newItem.sprite;
-            toyImage.sprite = null;
-            StartCoroutine(deleteFood());
+            foodAnim.SetTrigger(newItem.name);
+            toyAnim.SetTrigger("Nothing");
+            StartCoroutine(DeleteFood(3f));
+
+            speechBubble.SetActive(true);
+            StartCoroutine(HideBubble(3.5f));
+            bubbleAnimator.SetTrigger("Love");
         } else if (newItem && newItem.type == Item.itemType.TOY)
         {
-            foodImage.sprite = null;
-            toyImage.sprite = newItem.sprite;
-            StartCoroutine(deleteToy());
+            foodAnim.SetTrigger("Nothing");
+            toyAnim.SetTrigger(newItem.name);
+            StartCoroutine(DeleteToy(5f));
+
+            speechBubble.SetActive(true);
+            StartCoroutine(HideBubble(5.5f));
+            bubbleAnimator.SetTrigger("Excited");
         } else if (newItem && newItem.type == Item.itemType.HAT)
         {
-            hatImage.sprite = newItem.sprite;
-        } else {
-            foodImage.sprite = null;
-            toyImage.sprite = null;
+            hatAnim.SetTrigger(newItem.name);
+        } else
+        {
+            foodAnim.SetTrigger("Nothing");
+            toyAnim.SetTrigger("Nothing");
         }
     }
 
@@ -67,10 +95,11 @@ public class Creature : MonoBehaviour {
     {
         if (currentItem)
         {
+            lastAction = 0f;
             if (currentItem.type == Item.itemType.FOOD)
             {
                 faceAnimator.SetBool("eating", true);
-                SetHappiness(0.1f);
+                SetHappiness(currentItem.happiness);
             }
             else
             {
@@ -79,7 +108,7 @@ public class Creature : MonoBehaviour {
 
             if (currentItem.type == Item.itemType.TOY)
             {
-                SetHappiness(0.1f);
+                SetHappiness(currentItem.happiness);
             }
         } else
         {
@@ -89,7 +118,13 @@ public class Creature : MonoBehaviour {
         // Pet creature
         if (mousedOver && Input.GetMouseButton(0))
         {
-            SetHappiness(0.1f);
+            lastAction = 0f;
+            if (mouseDownTime > 0.2f)
+            {
+                speechBubble.SetActive(true);
+                bubbleAnimator.SetTrigger("Love");
+                SetHappiness(0.1f);
+            }
         }
 
         if (happiness > 0)
@@ -98,6 +133,14 @@ public class Creature : MonoBehaviour {
         } else if (happiness < 0)
         {
             SetHappiness(0.01f);
+        }
+
+        if (lastAction > 10f)
+        {
+            speechBubble.SetActive(true);
+            StartCoroutine(HideBubble(3f));
+            bubbleAnimator.SetTrigger("Bored");
+            lastAction = 0f;
         }
     }
 
@@ -117,14 +160,31 @@ public class Creature : MonoBehaviour {
 
     void OnMouseDown()
     {
-        SetHappiness(-1);
+        mouseDown = true;
+        lastAction = 0f;
     }
 
+    void OnMouseUp()
+    {
+        StartCoroutine(HideBubble(0.5f));
+        if (mouseDownTime < 0.2f)
+        {
+            speechBubble.SetActive(true);
+            StartCoroutine(HideBubble(3f));
+            bubbleAnimator.SetTrigger("Anger");
+            SetHappiness(-3);
+        }
+        mouseDown = false;
+        mouseDownTime = 0f;
+    }
 
     void OnMouseEnter()
     {
-        mouse.SetPetMouse();
-        mousedOver = true;
+        if (menuBar.selected != MenuBar.states.STORE)
+        {
+            mouse.SetPetMouse();
+            mousedOver = true;
+        }
     }
 
     void OnMouseExit()
