@@ -20,9 +20,9 @@ public class Creature : MonoBehaviour {
     float lastAction = 0f;
 
     public Item currentItem = null;
-    public SpriteRenderer foodImage;
-    public SpriteRenderer toyImage;
-    public SpriteRenderer hatImage;
+    public Animator foodAnim;
+    public Animator toyAnim;
+    public Animator hatAnim;
 
 
     // Use this for initialization
@@ -65,10 +65,8 @@ public class Creature : MonoBehaviour {
         currentItem = newItem;
         if (newItem && newItem.type == Item.itemType.FOOD)
         {
-            foodImage.gameObject.SetActive(true);
-            foodImage.sprite = newItem.sprite;
-            toyImage.gameObject.SetActive(false);
-            toyImage.sprite = null;
+            foodAnim.SetTrigger(newItem.name);
+            toyAnim.SetTrigger("Nothing");
             StartCoroutine(DeleteFood(3f));
 
             speechBubble.SetActive(true);
@@ -76,10 +74,8 @@ public class Creature : MonoBehaviour {
             bubbleAnimator.SetTrigger("Love");
         } else if (newItem && newItem.type == Item.itemType.TOY)
         {
-            foodImage.gameObject.SetActive(false);
-            foodImage.sprite = null;
-            toyImage.sprite = newItem.sprite;
-            toyImage.gameObject.SetActive(true);
+            foodAnim.SetTrigger("Nothing");
+            toyAnim.SetTrigger(newItem.name);
             StartCoroutine(DeleteToy(5f));
 
             speechBubble.SetActive(true);
@@ -87,15 +83,11 @@ public class Creature : MonoBehaviour {
             bubbleAnimator.SetTrigger("Excited");
         } else if (newItem && newItem.type == Item.itemType.HAT)
         {
-            hatImage.gameObject.SetActive(true);
-            hatImage.sprite = newItem.sprite;
+            hatAnim.SetTrigger(newItem.name);
         } else
         {
-            foodImage.sprite = null;
-            foodImage.gameObject.SetActive(false);
-            toyImage.sprite = null;
-            toyImage.gameObject.SetActive(false);
-            hatImage.gameObject.SetActive(false);
+            foodAnim.SetTrigger("Nothing");
+            toyAnim.SetTrigger("Nothing");
         }
     }
 
