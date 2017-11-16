@@ -22,7 +22,7 @@ public class IntroController : MonoBehaviour {
     public void StartNaming ()
     {
         creature.gameObject.SetActive(true);
-        if (gameController.namingVersion == GameController.testNaming.custom)
+        if (gameController.testNaming)
         {
             gameObject.SetActive(true);
         } else

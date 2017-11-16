@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class TestController : MonoBehaviour {
 
     GameController gameController;
+    public Toggle nameToggle;
+    public Toggle hatToggle;
 
 	// Use this for initialization
 	void Start () {
@@ -17,18 +19,10 @@ public class TestController : MonoBehaviour {
 		
 	}
 
-    public void ChooseNoNaming()
-    {
-        gameController.namingVersion = GameController.testNaming.none;
-    }
-
-    public void ChooseCustomNaming()
-    {
-        gameController.namingVersion = GameController.testNaming.custom;
-    }
-
     public void CleanUpTests ()
     {
+        gameController.testNaming = nameToggle.isOn;
+        gameController.testHats = hatToggle.isOn;
         gameController.titleController.StartTitle();
         Destroy(gameObject);
     }

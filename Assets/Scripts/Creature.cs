@@ -27,8 +27,6 @@ public class Creature : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        menuBar = FindObjectOfType<MenuBar>();
-        mouse = FindObjectOfType<Mouse>();
         speechBubble.SetActive(false);
         SetCurrentItem(null);
 	}
