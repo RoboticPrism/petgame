@@ -160,7 +160,10 @@ public class Creature : MonoBehaviour {
 
     void OnMouseDown()
     {
-        mouseDown = true;
+        if (menuBar.selected != MenuBar.states.STORE)
+        {
+            mouseDown = true;
+        }
         lastAction = 0f;
     }
 
