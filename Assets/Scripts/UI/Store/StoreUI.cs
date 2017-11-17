@@ -27,10 +27,7 @@ public class StoreUI : MonoBehaviour {
     // Use this for initialization
     void Start () {
         // if hats aren't part of this test, remove all from the game
-        if (!gameController.testHats)
-        {
-            itemsToSell.RemoveAll(item => item.type == Item.itemType.HAT);
-        }
+        
 
         // Add each item to sell as a buy button
         foreach (Item item in itemsToSell)
@@ -49,6 +46,14 @@ public class StoreUI : MonoBehaviour {
 
         // Add listener for cancel button
         cancelButton.onClick.AddListener(() => CancelPurchase());
+    }
+
+    void Awake ()
+    {
+        if (!gameController.testHats)
+        {
+            itemsToSell.RemoveAll(item => item.type == Item.itemType.HAT);
+        }
     }
 	
 	// Update is called once per frame

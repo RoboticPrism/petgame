@@ -5,13 +5,13 @@ using UnityEngine.UI;
 
 public class IntroController : MonoBehaviour {
 
-    GameController gameController;
+    public GameController gameController;
     public InputField input;
     public Creature creature;
 
 	// Use this for initialization
 	void Start () {
-        gameController = FindObjectOfType<GameController>();
+        
     }
 	
 	// Update is called once per frame
