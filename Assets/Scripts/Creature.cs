@@ -11,6 +11,7 @@ public class Creature : MonoBehaviour {
     public Animator faceAnimator;
     public Animator bubbleAnimator;
     public GameObject speechBubble;
+	private CreatureSounds creatureSounds;
 
     public MenuBar menuBar;
     public Mouse mouse;
@@ -29,6 +30,7 @@ public class Creature : MonoBehaviour {
     void Start () {
         speechBubble.SetActive(false);
         SetCurrentItem(null);
+		creatureSounds = GetComponent<CreatureSounds> ();
 	}
 	
 	// Update is called once per frame
@@ -64,6 +66,7 @@ public class Creature : MonoBehaviour {
         if (newItem && newItem.type == Item.itemType.FOOD)
         {
             foodAnim.SetTrigger(newItem.name);
+			creatureSounds.playEatingSound();
             toyAnim.SetTrigger("Nothing");
             StartCoroutine(DeleteFood(3f));
 
@@ -74,6 +77,7 @@ public class Creature : MonoBehaviour {
         {
             foodAnim.SetTrigger("Nothing");
             toyAnim.SetTrigger(newItem.name);
+			creatureSounds.playBallSound();
             StartCoroutine(DeleteToy(5f));
 
             speechBubble.SetActive(true);
@@ -173,13 +177,15 @@ public class Creature : MonoBehaviour {
     void OnMouseUp()
     {
         StartCoroutine(HideBubble(0.5f));
-        if (mouseDownTime < 0.2f)
-        {
-            speechBubble.SetActive(true);
-            StartCoroutine(HideBubble(3f));
-            bubbleAnimator.SetTrigger("Anger");
-            SetHappiness(-3);
-        }
+		if (mouseDownTime < 0.2f) {
+			speechBubble.SetActive (true);
+			StartCoroutine (HideBubble (3f));
+			bubbleAnimator.SetTrigger ("Anger");
+			SetHappiness (-3);
+			creatureSounds.playPokeSound ();
+		} else {
+			creatureSounds.playPetSound();
+		}
         mouseDown = false;
         mouseDownTime = 0f;
     }
