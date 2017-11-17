@@ -16,7 +16,6 @@ public class GameController : MonoBehaviour {
 
     void Awake() {
         AudioListener.pause = false;
-        Debug.Log("AAAH");
     }
 
 	// Use this for initialization
