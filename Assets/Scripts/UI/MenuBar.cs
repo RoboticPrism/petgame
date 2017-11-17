@@ -11,9 +11,7 @@ public class MenuBar : MonoBehaviour {
     List<MenuItem> items;
     StoreUI storeObjects;
     ItemsUI itemObjects;
-    public Image muteButtonImage;
-    public Sprite muteSprite;
-    public Sprite unmuteSprite;
+    public Animator muteButtonAnimator;
 	AudioSource source;
 
 	// Use this for initialization
@@ -33,11 +31,6 @@ public class MenuBar : MonoBehaviour {
         // Select home button
         ChangeSelected(states.HOME);
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
     // Set a new selected button and change things accordingly
     public void ChangeSelected(states newState)
@@ -67,11 +60,11 @@ public class MenuBar : MonoBehaviour {
         if(AudioListener.pause)
         {
             AudioListener.pause = false;
-            muteButtonImage.sprite = unmuteSprite;
+            muteButtonAnimator.SetTrigger("unmute");
         } else
         {
             AudioListener.pause = true;
-            muteButtonImage.sprite = muteSprite;
+            muteButtonAnimator.SetTrigger("mute");
         }
     }
 }

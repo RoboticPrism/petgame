@@ -14,6 +14,10 @@ public class GameController : MonoBehaviour {
     
     public Creature creature;
 
+    void Awake() {
+        AudioListener.pause = false;
+    }
+
 	// Use this for initialization
 	void Start () {
         // Hide all UIs except the AB test UI, which we start with
