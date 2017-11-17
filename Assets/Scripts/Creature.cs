@@ -89,6 +89,11 @@ public class Creature : MonoBehaviour {
         }
     }
 
+    public void RemoveHat()
+    {
+        hatAnim.SetTrigger("Nothing");
+    }
+
     void FixedUpdate ()
     {
         if (currentItem)
