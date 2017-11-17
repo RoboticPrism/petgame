@@ -27,8 +27,6 @@ public class Creature : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        menuBar = FindObjectOfType<MenuBar>();
-        mouse = FindObjectOfType<Mouse>();
         speechBubble.SetActive(false);
         SetCurrentItem(null);
 	}
@@ -89,6 +87,11 @@ public class Creature : MonoBehaviour {
             foodAnim.SetTrigger("Nothing");
             toyAnim.SetTrigger("Nothing");
         }
+    }
+
+    public void RemoveHat()
+    {
+        hatAnim.SetTrigger("Nothing");
     }
 
     void FixedUpdate ()
@@ -160,7 +163,10 @@ public class Creature : MonoBehaviour {
 
     void OnMouseDown()
     {
-        mouseDown = true;
+        if (menuBar.selected != MenuBar.states.STORE)
+        {
+            mouseDown = true;
+        }
         lastAction = 0f;
     }
 

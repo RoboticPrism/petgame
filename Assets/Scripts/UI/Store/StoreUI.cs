@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class StoreUI : MonoBehaviour {
+    public GameController gameController;
+    
     // Other controllers
     public ItemsUI itemsUI;
     public MoneyBar moneyBar;
@@ -24,6 +26,12 @@ public class StoreUI : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        // if hats aren't part of this test, remove all from the game
+        if (!gameController.testHats)
+        {
+            itemsToSell.RemoveAll(item => item.type == Item.itemType.HAT);
+        }
+
         // Add each item to sell as a buy button
         foreach (Item item in itemsToSell)
         {
