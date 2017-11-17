@@ -4,18 +4,23 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ItemsUI : MonoBehaviour {
+    public GameController gameController;
 
     // Item list vars
     public List<Item> itemsOwned;
     public List<InventoryItemButton> itemButtons = new List<InventoryItemButton>();
     public GameObject contentPane;
     public InventoryItemButton itemPrefab;
+    public Button removeHatButton;
 
     public Creature creature;
 
     // Use this for initialization
     void Start () {
-        
+        if(!gameController.testHats)
+        {
+            removeHatButton.gameObject.SetActive(false);
+        }
 	}
 	
 	// Update is called once per frame
@@ -41,5 +46,10 @@ public class ItemsUI : MonoBehaviour {
             itemButton.GetComponent<RectTransform>().offsetMin = new Vector2(10 + (100 * i), 0);
             i++;
         }
+    }
+
+    public void RemoveHat()
+    {
+        creature.RemoveHat();
     }
 }

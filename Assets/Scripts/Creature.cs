@@ -89,6 +89,11 @@ public class Creature : MonoBehaviour {
         }
     }
 
+    public void RemoveHat()
+    {
+        hatAnim.SetTrigger("Nothing");
+    }
+
     void FixedUpdate ()
     {
         if (currentItem)
@@ -158,7 +163,10 @@ public class Creature : MonoBehaviour {
 
     void OnMouseDown()
     {
-        mouseDown = true;
+        if (menuBar.selected != MenuBar.states.STORE)
+        {
+            mouseDown = true;
+        }
         lastAction = 0f;
     }
 

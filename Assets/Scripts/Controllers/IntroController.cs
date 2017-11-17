@@ -5,13 +5,13 @@ using UnityEngine.UI;
 
 public class IntroController : MonoBehaviour {
 
-    GameController gameController;
+    public GameController gameController;
     public InputField input;
     public Creature creature;
 
 	// Use this for initialization
 	void Start () {
-        gameController = FindObjectOfType<GameController>();
+        
     }
 	
 	// Update is called once per frame
@@ -22,7 +22,7 @@ public class IntroController : MonoBehaviour {
     public void StartNaming ()
     {
         creature.gameObject.SetActive(true);
-        if (gameController.namingVersion == GameController.testNaming.custom)
+        if (gameController.testNaming)
         {
             gameObject.SetActive(true);
         } else
